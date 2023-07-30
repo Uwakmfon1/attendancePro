@@ -7,18 +7,10 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-
     public function store()
     {
-        if (Auth::check()) {
-            return redirect('/index');
-        }
-        return redirect('/signin');
+        return redirect('/sign-in');
     }
 
-    public function index()
-    {
-        echo "Welcome " . Auth::user();
-    }
 
 }

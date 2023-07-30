@@ -14,29 +14,36 @@ Allow user input
             @csrf
             <div class="mb-6">
                 <label class="block mb-2 mt-8 uppercase font-bold text-xs text-gray-700"
-                       for="courseTitle">
+                       for="course_title">
                     Enter Course Name
                 </label>
 
                 <input class="border border-gray-400 p-2 w-full"
                        type="text"
-                       name="courseTitle"
-                       id="courseTitle"
+                       name="course_title"
+                       id="course_title"
                        required
                 >
+                @error('course_title')
+                    <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                @enderror
 
                 <label class="block mb-2 mt-6 uppercase font-bold text-xs text-gray-700"
-                       for="courseCode"
+                       for="course_code"
                 >
                     Enter Course Title
                 </label>
 
                 <input class="border border-gray-400 p-2 w-full"
                        type="text"
-                       name="courseCode"
-                       id="courseCode"
+                       name="course_code"
+                       id="course_code"
                        required
                 >
+                @error('course_code')
+                    <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                @enderror
+
                 <button type="submit" class="rounded bg-blue-300 p-4 mt-3 hover:bg-blue-400">Submit</button>
             </div>
         </form>

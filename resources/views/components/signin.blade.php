@@ -2,7 +2,7 @@
     <main class="max-w-lg mx-auto mt-10 bg-gray-200 border border-gray-200 p-6 rounded-xl shadow-lg shadow-white-500/50">
         <h1 class="text-center font-bold text-xl">Log In!</h1>
 
-        <form method="POST" action="/login" class="mt-10">
+        <form method="POST" action="/sign-in" class="mt-10">
             @csrf
 
             <div class="mb-6">
@@ -20,9 +20,6 @@
                        required
                 >
 
-                {{--                @error('email')--}}
-                {{--                <p class="text-red-500 text-xs mt-2">{{ $message }}</p>--}}
-                {{--                @enderror--}}
             </div>
 
             <div class="mb-6">

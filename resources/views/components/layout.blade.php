@@ -15,19 +15,19 @@
         <div class="mt-8 md:mt-0 flex items-center">
             @auth
                 <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}</span>
-                <form method="POST" action="/logout" class="text-xs font-semibold text-blue-500 ml-6">
+                <form method="GET" action="/logout" class="text-xs font-semibold text-blue-500 ml-6">
                     @csrf
                     <button type="submit" class="text-blue-500 hover:bg-blue-500 hover:text-white py-1 px-2 rounded">Log Out</button>
                 </form>
             @else
                 <a href="/signup" class="text-xs font-bold uppercase">Register</a>
-                <a href="/login" class="ml-6 text-xs font-bold uppercase">Login</a>
+                <a href="/sign-in" class="ml-6 text-xs font-bold uppercase">Login</a>
             @endauth
 
         </div>
     </nav>
 
-    {{ $slot }}
+    <div> {{ $slot }} </div>
 
     <footer class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-8 mt-80">
     </footer>
