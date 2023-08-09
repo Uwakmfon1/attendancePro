@@ -19,3 +19,8 @@
 * AT THE END OF TICKING ALL REG_NOS, CLICK THE SAVE BUTTON
 * AFTER SAVING THE NEW DATE SHOULD APPEAR ON THE COURSES PAGE 
 * SAVE AND REDIRECT TO HOME PAGE
+
+
+
+**Not yet done
+not yet been able to display the courses already exists by a register if so

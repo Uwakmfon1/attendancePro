@@ -25,3 +25,5 @@ Route::post('/create-course' ,[RegisterController::class,'createCourse'])->middl
 Route::get('/logout',[SessionsController::class,'destroy'])->middleware('auth');
 Route::get('/get-page',[Sessionscontroller::class, 'getPage']);
 Route::get('/get-student',[SessionsController::class,'getStudent']);
+Route::get('/take-attendance',[SessionsController::class,'takeAttendance']);
+Route::get('/attendance',[SessionsController::class,'attendance']);

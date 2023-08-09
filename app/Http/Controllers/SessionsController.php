@@ -7,9 +7,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use App\Models\Courses;
+use Illuminate\View\View;
+
+$count = DB::table('students')->get();
+//dd($count);
+//header('Content-type: application/json');
 
 class SessionsController extends Controller
 {
+
     public function create()
     {
         return view('sessions.create');
@@ -47,32 +53,38 @@ class SessionsController extends Controller
 
     public function getPage()
     {
-//        $course=
-        return view('attendance.index');
+        $count = DB::table('students')->get();
+        return view('attendance.index',[
+            'count'=> $count
+        ]);
     }
 
     public function getStudent()
     {
-//        $count = Students::count();
-        $count = DB::table('students')
-            ->get();
-//    dd($count);
-//        foreach ($count as $item => $items) {
-//            dd($item);
-//        }
+        $count = DB::table('students')->get();
+        return view('attendance.index', [
+            'count' => $count
+        ]);
+    }
 
-        foreach ($count as $key) {
-            dd($count);
-//            if (is_array($value)) {
-                foreach ($value as $key1 => $val) {
-//                    dd($val);
-//                    print_r(json_encode($val));
-//                    print_r($val);
-                }
-            }
-//        }
 
-//        echo 'welcome to this student page';
+    public function takeAttendance():View
+    {
+        $count = DB::table('students')->get();
+
+        return view('attendance.attendanceDate',[
+            'count'=>DB::table('students')->orderBy('id','asc')->simplePaginate(1)
+        ]);
+    }
+
+    public function attendance():View
+    {
+        $count = DB::table('students')->get();
+//        dd($count);
+        return view('attendance.attendance',[
+            'count'=>DB::table('students')->orderBy('id','asc')->simplePaginate(1)
+        ]);
     }
 
 }
+
