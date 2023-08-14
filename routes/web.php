@@ -26,4 +26,5 @@ Route::get('/logout',[SessionsController::class,'destroy'])->middleware('auth');
 Route::get('/get-page',[Sessionscontroller::class, 'getPage']);
 Route::get('/get-student',[SessionsController::class,'getStudent']);
 Route::get('/take-attendance',[SessionsController::class,'takeAttendance']);
-Route::get('/attendance',[SessionsController::class,'attendance']);
+Route::post('/attendance',[SessionsController::class,'index']);
+
