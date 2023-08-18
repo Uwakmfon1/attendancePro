@@ -18,9 +18,6 @@ class CoursesFactory extends Factory
     public function definition(): array
     {
         return [
-//            'course_title'=>'$this->',
-//            'course_code'=>'',
-//            'user_id'=>User::factory(),
 
         ];
     }

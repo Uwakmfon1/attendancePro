@@ -23,8 +23,10 @@ Route::get('/register-courses' ,[RegisterController::class,'registerCourses'])->
 Route::post('/create-course' ,[RegisterController::class,'createCourse'])->middleware('auth');
 
 Route::get('/logout',[SessionsController::class,'destroy'])->middleware('auth');
-Route::get('/get-page',[Sessionscontroller::class, 'getPage']);
+Route::get('/get-page/{id}',[Sessionscontroller::class, 'getPage']);
+Route::get('/get-page/{id}/take-attendance',[Sessionscontroller::class, 'takeAttendance']);
+
+//Route::get('/take-attendance',[SessionsController::class,'takeAttendance']);
 Route::get('/get-student',[SessionsController::class,'getStudent']);
-Route::get('/take-attendance',[SessionsController::class,'takeAttendance']);
 Route::post('/attendance',[SessionsController::class,'index']);
 

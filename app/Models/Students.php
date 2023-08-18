@@ -19,4 +19,8 @@ class Students extends Model
             ->whereDate('date', date('Y-m-d'));
     }
 
+    public function courses()
+    {
+        return $this->belongsToMany(Courses::class);
+    }
 }

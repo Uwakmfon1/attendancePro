@@ -61,12 +61,12 @@ class RegisterController extends Controller
         $results['course_code'] = strtoupper($results['course_code']);
         $results['course_title'] = strtoupper($results['course_title']);
 
+//
 
 //       it is here you'll write the if statement for not duplicating the courses
 
         if (Courses::query()->where('course_code', $results['course_code'])->exists()) {
             return Redirect::back()->withErrors(['error' => 'Another subject with this course code already exist.']);
-//            return redirect('/register-courses')->with(['error' => 'Another subject with this course code already exist.']);
         }
 
 
@@ -75,6 +75,7 @@ class RegisterController extends Controller
         }
 
         $result = Courses::create($results);
+        dd($result);
         return redirect('/home');
     }
 

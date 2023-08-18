@@ -11,9 +11,6 @@ use App\Models\Courses;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 
-$count = DB::table('students')->get();
-//dd($count);
-//header('Content-type: application/json');
 
 class SessionsController extends Controller
 {
@@ -37,23 +34,8 @@ class SessionsController extends Controller
             ], [
                 'present' => $record === 'present',
             ]);
-
         }
-
         return back()->with('message', 'Attendance recorded.');
-
-
-        if (isset($_POST['submit'])) {
-            if (!empty($_POST['radio'])) {
-//                echo '  ' . $_POST['radio'];
-                echo 'welcome to rjh==';
-            } else {
-                echo 'Please select the value.';
-            }
-        }
-        //$sql = "INSERT INTO `attendance` (`id`, `student_id`, `present`, `created_at`, `updated_at`) VALUES
-        //(1, 5, 1, '2023-08-14 15:25:50', '2023-08-14 15:25:50')";
-//        return $request->all();
     }
 
     public function create()
@@ -80,9 +62,10 @@ class SessionsController extends Controller
 
     public function view()
     {
-        $courses = Courses::where('user_id', Auth::id())->pluck('course_title');
-        return view('sessions.index', ['courses' => $courses]);
+        $courses = Courses::all()->map->only('user_id','course_title','course_code','id')
+            ->where('user_id','=', Auth::id());
 
+        return view('sessions.index', ['courses' => $courses]);
     }
 
     public function destroy()
@@ -91,13 +74,23 @@ class SessionsController extends Controller
         return redirect('/')->with('success', 'GoodBye');
     }
 
-    public function getPage()
+
+
+    public function getPage($id)
     {
-        $count = DB::table('students')->get();
+
+        $students = DB::table('students')
+            ->join('courses_students','students.id','=','courses_students.student_id')
+            ->select('students.name', 'students.id','students.RegNo')
+            ->where('courses_students.course_id','=',$id)
+            ->get();
+
         return view('attendance.index', [
-            'count' => $count
+            'students' => $students
         ]);
     }
+
+
 
     public function getStudent()
     {
@@ -108,25 +101,31 @@ class SessionsController extends Controller
     }
 
 
-    public function takeAttendance(): View
-    {
-        $students = Students::query()->with('todays_attendance')->get();
 
+    public function takeAttendance($id)
+    {
+        $courses = Courses::all()->map->only('user_id','course_title','course_code','id')
+            ->where('user_id','=', Auth::id());
+
+        $students = DB::table('students')
+            ->join('courses_students','students.id','=','courses_students.student_id')
+            ->select('students.name', 'students.id','students.RegNo')
+            ->where('courses_students.course_id','=',$id)
+            ->get();
+
+//        $students = Students::query()
+//            ->with('todays_attendance')
+////            ->where('course', '=', $courses->)
+//            ->get();
+//        $students->query()->with('todays_attendance')->get();
         $date = date('Y-m-d');
+    dd($students);
 
         return view('attendance.attendance', [
             'students' => $students,
+            '$courses'=>$courses,
             'date' => $date
         ]);
-    }
-
-    public function attendance()
-    {
-        dd($_POST);
-//        $gender = $_GET['gender'];
-//        this is where the code goes
-//        return view();
-        echo $name;
     }
 
 }
