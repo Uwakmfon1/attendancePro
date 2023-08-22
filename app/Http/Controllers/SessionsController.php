@@ -15,28 +15,7 @@ use Illuminate\Http\Request;
 class SessionsController extends Controller
 {
 
-    public function index(Request $request)
-    {
 
-        $request->validate([
-            'date' => ['required', 'date'],
-            'attendance' => ['required', 'array'],
-        ]);
-
-
-        $attendance = $request->get('attendance');
-
-
-        foreach ($attendance as $index => $record) {
-            Attendance::query()->updateOrCreate([
-                'date' => $request->get('date'),
-                'student_id' => $index,
-            ], [
-                'present' => $record === 'present',
-            ]);
-        }
-        return back()->with('message', 'Attendance recorded.');
-    }
 
     public function create()
     {
@@ -60,6 +39,7 @@ class SessionsController extends Controller
         ]);
     }
 
+
     public function view()
     {
         $courses = Courses::all()->map->only('user_id','course_title','course_code','id')
@@ -67,6 +47,7 @@ class SessionsController extends Controller
 
         return view('sessions.index', ['courses' => $courses]);
     }
+
 
     public function destroy()
     {
@@ -78,7 +59,6 @@ class SessionsController extends Controller
 
     public function getPage($id)
     {
-
         $students = DB::table('students')
             ->join('courses_students','students.id','=','courses_students.student_id')
             ->select('students.name', 'students.id','students.RegNo')
@@ -86,8 +66,11 @@ class SessionsController extends Controller
             ->get();
 
         return view('attendance.index', [
-            'students' => $students
+            'students' => $students,
+            'id' => $id
         ]);
+
+
     }
 
 
@@ -104,29 +87,52 @@ class SessionsController extends Controller
 
     public function takeAttendance($id)
     {
-        $courses = Courses::all()->map->only('user_id','course_title','course_code','id')
-            ->where('user_id','=', Auth::id());
+        /**
+         * pass the id of registered students to the url
+         * go to the attendance page
+         */
 
-        $students = DB::table('students')
+
+        $students = Students::query()
             ->join('courses_students','students.id','=','courses_students.student_id')
-            ->select('students.name', 'students.id','students.RegNo')
+            ->with('todays_attendance')
             ->where('courses_students.course_id','=',$id)
             ->get();
-
-//        $students = Students::query()
-//            ->with('todays_attendance')
-////            ->where('course', '=', $courses->)
-//            ->get();
-//        $students->query()->with('todays_attendance')->get();
         $date = date('Y-m-d');
-    dd($students);
+
+
 
         return view('attendance.attendance', [
             'students' => $students,
-            '$courses'=>$courses,
             'date' => $date
         ]);
     }
 
-}
 
+    public function index(Request $request)
+    {
+
+        $request->validate([
+            'date' => ['required', 'date'],
+            'attendance' => ['required', 'array'],
+        ]);
+
+
+        $attendance = $request
+            ->get('attendance');
+
+
+        foreach ($attendance as $index => $record) {
+            dd(Attendance::all('course_id'));//->get('course_id'));
+            Attendance::query()->updateOrCreate([
+                'date' => $request->get('date'),
+                'student_id' => $index,
+//                'course_id'
+            ], [
+                'present' => $record === 'present',
+            ]);
+        }
+
+        return back()->with('message', 'Attendance recorded.');
+    }
+}

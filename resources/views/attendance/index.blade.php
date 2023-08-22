@@ -11,7 +11,6 @@
                                <span>{{ $student->name }}</span>
                                 <span>{{ $student->RegNo }}</span>
                             </a>
-
                         </li>
                     </ul>
                 </strong>
@@ -42,7 +41,7 @@
         <br>
         <div class="flex width-64 space-x-8">
             <button class="bg-blue-500 p-2 rounded hover:text-white-400"><a href="/get-student">Add Students</a></button>
-            <button class="bg-blue-500 p-2 rounded hover:text-white-400"><a href="/get-page/{id}/take-attendance">Take Attendance</a></button>
+            <button class="bg-blue-500 p-2 rounded hover:text-white-400"><a href="/get-page/{{$id}}/take-attendance">Take Attendance</a></button>
         </div>
 
     </div>

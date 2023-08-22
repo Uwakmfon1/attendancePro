@@ -12,10 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('courses_students', function (Blueprint $table) {
-            $table->integer('student_id')->unsigned();
-            $table->integer('course_id')->unsigned();
-            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->integer('student_id');
+            $table->integer('course_id');
 
         });
     }
@@ -28,4 +26,3 @@ return new class extends Migration
         Schema::dropIfExists('courses_students');
     }
 };
-

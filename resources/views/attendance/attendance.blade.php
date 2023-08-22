@@ -6,8 +6,9 @@
         <form action="/attendance" method="POST">
             @csrf
 
-            <div class="ml-24 mt-10">
-                Date Taken: <input name="date" type="date" value="{{$date}}">
+            <div class="ml-24 mt-10 flex">
+                <label for="date"> Date Taken:</label>
+                <input name="date" type="date" value="{{ $date }}">
             </div>
 
 
@@ -16,20 +17,25 @@
                     <p class="font-bold">{{ $student->name }}</p>
                     <div class="flex ">
 
-                        <label for="absent1-{{$student->id}}">
+                        <label for="absent1-{{ $student->id }}">
                             Absent
                         </label>
-                        <input type="radio" name="attendance[{{$student->id}}]" id="absent1-{{$student->id}}"
-                               @if(!$student->todays_attendance)
+
+                        <input type="radio" name="attendance[{{ $student->id }}]" id="absent1-{{ $student->id }}"
+                               @if(!$student->todays_attendance?->present)
                                    checked
                                @endif
                                value="absent">
 
-                        <label for="present1-{{$student->id}}">
+
+                        <label for="present1-{{ $student->id }}">
                             Present
                         </label>
-                        <input type="radio" name="attendance[{{$student->id}}]" id="present1-{{$student->id}}"
-                               @if($student->todays_attendance)
+
+
+                        <input type="radio" name="attendance[{{ $student->id }}]" id="present1-{{ $student->id }}"
+
+                               @if($student->todays_attendance?->present)
                                    checked
                                @endif
                                value="present">

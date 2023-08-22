@@ -9,10 +9,8 @@
         @auth
             @foreach($courses as $courseCode)
                 <ol class="px-10">
-                    {{--                <li>  {{ $str('laracasts') }} </li>--}}
+
                     <li class="hover:text-blue-700">
-
-
                         <a href="/get-page/{{ $courseCode['id'] }}">{{ $courseCode['course_code'] }} --- {{ $courseCode['course_title'] }}</a>
                     </li>
                 </ol>
