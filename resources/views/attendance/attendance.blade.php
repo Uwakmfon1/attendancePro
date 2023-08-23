@@ -3,14 +3,14 @@
 
     <div class="rounded p-6 bg-gray-100 mt-10 w-3/6 ml-80">
 
-        <form action="/attendance" method="POST">
-            @csrf
+        <form action="/attendance/{id}" method="POST">
 
+            @csrf
             <div class="ml-24 mt-10 flex">
                 <label for="date"> Date Taken:</label>
                 <input name="date" type="date" value="{{ $date }}">
             </div>
-
+            <input type="hidden" name="course_id" value="{{ $id }}">
 
             @foreach($students as $student)
                 <section class="ml-24 w-3/5 p-16 rounded bg-red-400 mt-10">
@@ -39,6 +39,7 @@
                                    checked
                                @endif
                                value="present">
+
                     </div>
                 </section>
             @endforeach
@@ -47,5 +48,13 @@
         </form>
     </div>
 
-
+@if($errors->any())
+    <div class="">
+        @foreach($errors->all() as $error)
+            <li class="text-red-500 list-none">
+                {{ $error }}
+            </li>
+        @endforeach
+    </div>
+@endif
 </x-layout>

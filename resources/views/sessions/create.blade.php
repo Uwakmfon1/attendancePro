@@ -58,6 +58,13 @@
                      </span>
                     </a>
                 </div>
+                @if($errors->any())
+                    <div class="">
+                        @foreach($errors->all() as $error)
+                            <li class="text-red-500 list-none">{{ $error }}</li>
+                        @endforeach
+                    </div>
+                @endif
             </form>
         </main>
     </section>

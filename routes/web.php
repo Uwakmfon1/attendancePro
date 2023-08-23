@@ -30,5 +30,5 @@ Route::get('/get-page/{id}/take-attendance',[Sessionscontroller::class, 'takeAtt
 //Route::get('/take-attendance',[SessionsController::class,'takeAttendance']);
 Route::get('/get-student',[SessionsController::class,'getStudent']);
 
-Route::post('/attendance',[SessionsController::class,'index']);
+Route::post('/attendance/{id}',[SessionsController::class,'index']);
 

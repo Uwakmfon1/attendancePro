@@ -75,7 +75,6 @@ class RegisterController extends Controller
         }
 
         $result = Courses::create($results);
-        dd($result);
         return redirect('/home');
     }
 
