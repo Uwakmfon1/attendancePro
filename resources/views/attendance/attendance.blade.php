@@ -1,10 +1,8 @@
 <x-layout>
 
-
     <div class="rounded p-6 bg-gray-100 mt-10 w-3/6 ml-80">
 
         <form action="/attendance/{id}" method="POST">
-
             @csrf
             <div class="ml-24 mt-10 flex">
                 <label for="date"> Date Taken:</label>
@@ -57,4 +55,5 @@
         @endforeach
     </div>
 @endif
+
 </x-layout>

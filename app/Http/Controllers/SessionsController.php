@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\CoursesStudents;
 use App\Models\Students;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 
 class SessionsController extends Controller
 {
+
     public function create()
     {
         return view('sessions.create');
@@ -27,7 +29,7 @@ class SessionsController extends Controller
         ]);
 
         if (auth()->attempt($attributes)) {
-            session()->regenerate();
+//            session()->regenerate();
             return redirect('/home')->with('success', 'Welcome Back');
         }
 
@@ -38,10 +40,9 @@ class SessionsController extends Controller
 
     public function view()
     {
-        session()->flash('message','successfully logged in');
-        $courses = Courses::all()->map->only('user_id','course_title','course_code','id')
-            ->where('user_id','=', Auth::id());
-
+        session()->flash('message', 'successfully logged in');
+        $courses = Courses::all()->map->only('user_id', 'course_title', 'course_code', 'id')
+            ->where('user_id', '=', Auth::id());
         return view('sessions.index', ['courses' => $courses]);
     }
 
@@ -52,44 +53,44 @@ class SessionsController extends Controller
     }
 
 
-
     public function getPage($id)
     {
+        $course = DB::table('courses')
+            ->where('id', $id)->get();
+
         $students = DB::table('students')
-            ->join('courses_students','students.id','=','courses_students.student_id')
-            ->select('students.name', 'students.id','students.RegNo')
-            ->where('courses_students.course_id','=',$id)
+            ->join('courses_students', 'students.id', '=', 'courses_students.student_id')
+            ->select('students.name', 'students.id', 'students.RegNo')
+            ->where('courses_students.course_id', '=', $id)
             ->get();
 
         return view('attendance.index', [
+            'course' => $course,
             'students' => $students,
             'id' => $id
         ]);
     }
 
-    public function getStudent()
+    public function getStudent($id)
     {
-        $count = DB::table('students')->get();
-        return view('attendance.index', [
-            'count' => $count
+        return view('students.create', [
+            'id' => $id
         ]);
     }
 
-
     public function takeAttendance($id)
     {
-
         $students = Students::query()
-            ->join('courses_students','students.id','=','courses_students.student_id')
+            ->join('courses_students', 'students.id', '=', 'courses_students.student_id')
             ->with('todays_attendance')
-            ->where('courses_students.course_id','=',$id)
+            ->where('courses_students.course_id', '=', $id)
             ->get();
         $date = date('Y-m-d');
 
         return view('attendance.attendance', [
             'students' => $students,
             'date' => $date,
-            'id'=>$id
+            'id' => $id
         ]);
     }
 
@@ -107,12 +108,65 @@ class SessionsController extends Controller
             Attendance::query()->updateOrCreate([
                 'date' => $request->get('date'),
                 'student_id' => $index,
-                'course_id'=>$request->get('course_id')
+                'course_id' => $request->get('course_id')
             ], [
                 'present' => $record === 'present',
             ]);
         }
-
         return back()->with('message', 'Attendance recorded.');
+    }
+
+
+    public function postStudent(Request $request)
+    {
+
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
+            'regNo' => 'required',
+            'phoneNo' => 'required',
+            'course_id' => 'required'
+        ]);
+
+        $students = Students::firstOrCreate([
+            'name' => $request->input('name'),
+            'RegNo' => $request->input('regNo'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phoneNo'),
+        ],
+            [
+                'name' => $request->input('name'),
+                'RegNo' => $request->input('regNo'),
+                'email' => $request->input('email'),
+                'phone' => $request->input('phoneNo'),
+            ]);
+
+        CoursesStudents::firstOrCreate([
+            'student_id' => $students->id,
+            'course_id' =>$request->input('course_id')
+        ]);
+
+        $id = $request->input('course_id');
+
+        return redirect()->to('get-page/'.$id);
+    }
+
+
+    public function getTotal($id)
+    {
+        $course = DB::table('courses')
+            ->where('id', $id)->get();
+
+        $students = DB::table('students')
+            ->join('courses_students', 'students.id', '=', 'courses_students.student_id')
+            ->select('students.name', 'students.id', 'students.RegNo')
+            ->where('courses_students.course_id', '=', $id)
+            ->get();
+
+        return view('attendance.total',[
+            'course'=>$course,
+            'id'=>$id,
+            'students'=>$students
+        ]);
     }
 }

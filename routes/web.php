@@ -25,10 +25,15 @@ Route::post('/create-course' ,[RegisterController::class,'createCourse'])->middl
 
 Route::get('/logout',[SessionsController::class,'destroy'])->middleware('auth');
 Route::get('/get-page/{id}',[Sessionscontroller::class, 'getPage']);
+
+Route::get('/get-total/{id}',[SessionsController::class,'getTotal']);
+
 Route::get('/get-page/{id}/take-attendance',[Sessionscontroller::class, 'takeAttendance']);
 
-//Route::get('/take-attendance',[SessionsController::class,'takeAttendance']);
-Route::get('/get-student',[SessionsController::class,'getStudent']);
+Route::get('/get-student/{id}',[SessionsController::class,'getStudent']);
+
+Route::post('/get-student',[SessionsController::class,'postStudent']);
+
 
 Route::post('/attendance/{id}',[SessionsController::class,'index']);
 

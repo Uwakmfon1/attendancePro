@@ -43,7 +43,6 @@
                         type="email"
                         id="email"
                         name="email"
-                        {{--                    value="{{ old('email') }}"--}}
                         required
                     >
 

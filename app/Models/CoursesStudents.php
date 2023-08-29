@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class CoursesStudents extends pivot
 {
     use HasFactory;
+    protected  $table='courses_students';
+    public $timestamps = false;
+
+
 }

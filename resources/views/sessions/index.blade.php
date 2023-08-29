@@ -3,7 +3,7 @@
         <x-hellocard>
             <div>
                 <h2 class="text-2xl font-bold">Welcome To the Courses Page</h2>
-                <p>These are a list of your courses</p>
+                <p>This is a list of your courses</p>
             </div>
         </x-hellocard>
         @auth

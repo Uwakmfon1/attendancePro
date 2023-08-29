@@ -17,9 +17,14 @@
 * FOR EACH OF THE NEXT REG_NO, CLICK PRESENT OR ABSENT %%%
 * AT THE END OF TICKING ALL REG_NOS, CLICK THE SAVE BUTTON %%%
 * AFTER SAVING THE NEW DATE SHOULD APPEAR ON THE ATTENDANCE DB %%%
-* SAVE AND REDIRECT TO HOME PAGE
+* SAVE AND REDIRECT TO HOME PAGE %%%
 
 
 
 **Not yet done
+*write migrations to automate pivot table %%%
+*make a calculate total attendance button
+*Ensure when button is clicked, a 
+*make it responsive on different screen resolutions
+*connect to google forms using pabbly connect
 
