@@ -21,6 +21,15 @@
 
 
 
+** To calculate the attendance
+* get the students from the attendance
+* get the date from the attendance
+* for each student id, display name of student
+* --> check and fetch the dates
+* --> count the dates for each attendance
+* --> check the present column for either present/absent
+* --> calculate the % attendance {{ math.floor((timesAttended/totalNoOfClasses) x 100%) }}
+
 **Not yet done
 *write migrations to automate pivot table %%%
 *make a calculate total attendance button

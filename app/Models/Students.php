@@ -12,6 +12,17 @@ class Students extends Model
 
     protected $guarded = [];
 
+
+    protected $attributes = [
+        'options' => '[]',
+        'delayed' => false,
+    ];
+
+    public function attendance(): HasOne
+    {
+        return $this->hasMany(Attendance::class, 'student_id', 'id');
+    }
+
     public function todays_attendance(): HasOne
     {
         return $this
@@ -21,7 +32,7 @@ class Students extends Model
 
     public function courses()
     {
-        return $this->belongsToMany(Courses::class,'courses_students');
+        return $this->belongsToMany(Courses::class, 'courses_students');
     }
 
 }

@@ -17,4 +17,9 @@ class Attendance extends Model
     protected $casts = [
         'present' => 'boolean'
     ];
+
+    public function student()
+    {
+        return $this->belongsTo(Students::class);
+    }
 }

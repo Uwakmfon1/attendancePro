@@ -10,6 +10,7 @@ class CoursesStudents extends pivot
     use HasFactory;
     protected  $table='courses_students';
     public $timestamps = false;
+    public $primaryKey = 'course_id';
 
 
 }

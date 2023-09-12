@@ -119,7 +119,6 @@ class SessionsController extends Controller
 
     public function postStudent(Request $request)
     {
-
         $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users,email',
@@ -143,30 +142,58 @@ class SessionsController extends Controller
 
         CoursesStudents::firstOrCreate([
             'student_id' => $students->id,
-            'course_id' =>$request->input('course_id')
+            'course_id' => $request->input('course_id')
         ]);
 
         $id = $request->input('course_id');
 
-        return redirect()->to('get-page/'.$id);
+        return redirect()->to('get-page/' . $id);
     }
 
 
     public function getTotal($id)
     {
-        $course = DB::table('courses')
-            ->where('id', $id)->get();
-
-        $students = DB::table('students')
-            ->join('courses_students', 'students.id', '=', 'courses_students.student_id')
-            ->select('students.name', 'students.id', 'students.RegNo')
-            ->where('courses_students.course_id', '=', $id)
+        $attendances = Attendance::query()
+            ->where('course_id', $id)
+            ->with('student')
             ->get();
 
-        return view('attendance.total',[
-            'course'=>$course,
-            'id'=>$id,
-            'students'=>$students
-        ]);
+        $maxAttendance = count($attendances->unique('date'));
+        $groupedAttendances = $attendances->groupBy('student_id');
+
+
+
+
+        $totals = [];
+
+
+//        $products = [];
+//        foreach ($orders as $order) {
+//            if ($order->product) {
+//                $products[] = $order->product;
+//            }
+//        }
+
+
+        foreach ($groupedAttendances as $index =>$attendance ) {
+
+            $student_attendance = count($attendance);
+
+            $totals[] = (object)[
+                 'name' => $attendance[0]->student->name,
+                 'student_attendance' => $student_attendance,
+                 'max_attendance' => $maxAttendance,
+//                'percentage_attendance' => floor((($maxAttendance / $student_attendance) * 100)),
+            ];
+    dd($totals);
+        }
+
+
+//        return view('attendance.total', [
+//            'course' => $course,
+//            'id' => 3,
+//            'students' => $students
+//        ]);
+
     }
 }

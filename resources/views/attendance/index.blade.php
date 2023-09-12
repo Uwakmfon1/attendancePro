@@ -48,7 +48,7 @@
             <button class="bg-blue-500 p-2 rounded hover:text-white-400"><a href="/get-page/{{$id}}/take-attendance">Take Attendance</a></button>
         </div> <br>
     <div>
-        <button class="bg-blue-500 p-2 rounded hover:text-white-400"><a href="/get-total/{id}">Total Attendance</a></button>
+        <button class="bg-blue-500 p-2 rounded hover:text-white-400"><a href="/get-total/{{$id}}">Total Attendance</a></button>
     </div>
     </div>
 
