@@ -160,32 +160,42 @@ class SessionsController extends Controller
 
         $maxAttendance = count($attendances->unique('date'));
         $groupedAttendances = $attendances->groupBy('student_id');
-
-
-
+        $groupedAttendances;//=$groupedAttendances->toArray();
 
         $totals = [];
 
-
-//        $products = [];
-//        foreach ($orders as $order) {
-//            if ($order->product) {
-//                $products[] = $order->product;
-//            }
-//        }
+dd($groupedAttendances);
 
 
-        foreach ($groupedAttendances as $index =>$attendance ) {
 
-            $student_attendance = count($attendance);
+        foreach ($groupedAttendances as $keys => $values) {
 
-            $totals[] = (object)[
-                 'name' => $attendance[0]->student->name,
-                 'student_attendance' => $student_attendance,
-                 'max_attendance' => $maxAttendance,
-//                'percentage_attendance' => floor((($maxAttendance / $student_attendance) * 100)),
-            ];
-    dd($totals);
+        foreach($values as $key =>$value){
+    print_r($value['course_id']);
+        }
+
+            foreach($values as $column => $column_values){
+               echo $column_values['present'];
+//                foreach($column_values as $column_value => $value){
+//                   dd(count(+$column_value->present));
+//                }
+            }
+
+            $student_attendance = $attendance->map(function ($attendance) {
+                return collect($attendance->toArray())
+                    ->only(['course_id', 'student_id', 'present'])
+                    ->all();
+            });
+            dd($student_attendance->groupBy('student_id'));
+
+
+//            $totals[] = (object)[
+//                 'name' => $attendance[0]->student->name,
+//                 'student_attendance' => $student_attendance,
+//                 'max_attendance' => $maxAttendance,
+////                'percentage_attendance' => floor((($maxAttendance / $student_attendance) * 100)),
+//            ];
+//    dd($totals);
         }
 
 
