@@ -160,13 +160,39 @@ class SessionsController extends Controller
 
         $maxAttendance = count($attendances->unique('date'));
         $groupedAttendances = $attendances->groupBy('student_id');
-        $groupedAttendances;//=$groupedAttendances->toArray();
+        $groupedAttendances = $groupedAttendances->toArray();
 
         $totals = [];
 
-dd($groupedAttendances);
+//        $groupedAttendances->each(function($collection,$attribute){
+//            foreach($collection as $value){
+//                var_dump(+$value->present);
+//            }
+//            dump($attribute,$collection);
+//        });
 
+        foreach($groupedAttendances as $keys => $values){
 
+            foreach ($values as $value){
+                dump($value);
+               $result = array_reduce($value, function($carry, $item){
+                  return $carry;
+//                   if(!isset($carry[$item['student_id']])){
+//                       $carry[$item['student_id']] = ['student_id'=>$item['student_id']];
+//                   }else{
+//                       $carry[$item['student_id']]=['student_id'=>$item['student_id']];
+//                   }
+//                   return $carry;
+               });
+                dump($result);
+//                $present = +$value['present'];
+//                $std_name = $value['student']['name'];
+//                dump($present);
+            }
+        }
+//dd($groupedAttendances);
+
+die();
 
         foreach ($groupedAttendances as $keys => $values) {
 
