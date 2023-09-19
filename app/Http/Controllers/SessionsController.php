@@ -160,25 +160,28 @@ class SessionsController extends Controller
 
         $maxAttendance = count($attendances->unique('date'));
         $groupedAttendances = $attendances->groupBy('student_id');
-//        $groupedAttendances = $groupedAttendances->toArray();
+        $studentAttendances = $attendances->groupBy('relations');
 
-//        dd($groupedAttendances);
+
 
         $totals = [];
 
         foreach ($groupedAttendances as $attendance) {
-
+//            dd($attendance[0]->student-);
             $daysPresent = $attendance->filter(fn($at) => $at->present)->count();
+
+
 
 
             $totals[] = (object)[
                 'name' => $attendance[0]->student->name,
+                'RegNo' => $attendance[0]->student->RegNo,
                 'student_attendance' => $daysPresent,
                 'max_attendance' => $maxAttendance,
                 'percentage_attendance' => floor((($daysPresent / $maxAttendance) * 100)),
             ];
         }
-
+//dd($totals);
 
 //        foreach ($groupedAttendances as $attendanceKey => $attendance) {
 //            foreach ($attendance as $key => $pair) {
@@ -202,9 +205,9 @@ class SessionsController extends Controller
 
 
         return view('attendance.total', [
-            'course' => $course,
-            'id' => 3,
-            'students' => $students
+//            'course' => $course,
+            'id' => $id ,
+            'totals' => $totals,
         ]);
 
     }
