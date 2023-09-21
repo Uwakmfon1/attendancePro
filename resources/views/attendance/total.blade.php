@@ -1,7 +1,9 @@
 <x-layout1>
     <div class="flex md:flex">
         <h2 class="text-lg ml-1/5 m-6 md:text-2xl md:ml-20">Welcome To The Total Attendance Page</h2>
-        <a href="/get-page/{{ $id }}" class="mt-5 font-bold-300 pt-0 :hover text-blue-500">Go Back</a>
+        <button class="h-3/5 bg-blue-400 text-white-400 mt-5 p-2 rounded">
+            <a href="/get-page/{{ $id }}" class="mt-7 text-white-500 font-bold-300 pt-0 :hover">Back</a>
+        </button>
     </div>
 
 

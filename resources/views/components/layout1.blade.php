@@ -9,11 +9,11 @@
 
 <body style="font-family: Open Sans, sans-serif">
 <section>
-    <nav class="flex h-20 bg-gray-100 shadow-lg shadow-white-500/50 md:flex md:justify-between md:items-center">
-        <h2 class="uppercase text-3xl font-bold text-blue-400 p-6">wbmyx</h2>
+    <nav class="flex h-20 bg-gray-100 justify-evenly shadow-lg shadow-white-500/50 md:flex md:justify-between md:items-center">
+        <h2 class="uppercase text-lg font-bold text-blue-400 py-7 px-2 md:text-3xl">wbmyx</h2>
 
 
-        <div class="mt-8 md:mt-0 flex items-center">
+        <div class="mt-1 md:mt-0 flex items-center">
                 <span class="text-xs font-bold uppercase"> {{ auth()->user()->name }}</span>
                 <form method="GET" action="/logout" class="text-xs font-semibold text-blue-500 ml-6">
                     @csrf
@@ -24,7 +24,7 @@
 
     <div> {{ $slot }} </div>
 
-    <footer class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-8 mt-80">
+    <footer class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-8 mt-60">
         &copycopyright dev_hodu 2023
     </footer>
 </section>

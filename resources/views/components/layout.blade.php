@@ -13,7 +13,7 @@
             <h2 class="uppercase text-3xl font-bold text-blue-400 p-6">wbmyx</h2>
 
 
-        <div class="hidden mt-8 md:mt-0 flex items-center md:block">
+        <div class="hidden mt-8 md:mt-0 items-center md:flex">
             @auth
                 <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}</span>
                 <form method="GET" action="/logout" class="text-xs font-semibold text-blue-500 ml-6">

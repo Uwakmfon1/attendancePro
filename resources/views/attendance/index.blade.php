@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="py-8 px-10">
+    <div class="md:py-8 px-10">
     @foreach($course as $item)
         <h2 class="font-bold">Welcome To The Attendance page For {{ $item->course_code }} --- {{ $item->course_title }}</h2>
     @endforeach
