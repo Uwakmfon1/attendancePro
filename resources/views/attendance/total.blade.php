@@ -1,12 +1,11 @@
 <x-layout1>
-    <div class="flex">
-        <h2 class="text-2xl font-bold-300 m-6">Welcome To Total Attendance Page</h2>
-        <a href="/get-page/{{ $id }}" class="mt-8 font-bold-300  :hover text-blue-500">Go Back</a>
+    <div class="flex md:flex">
+        <h2 class="text-lg ml-1/5 m-6 md:text-2xl md:ml-20">Welcome To The Total Attendance Page</h2>
+        <a href="/get-page/{{ $id }}" class="mt-5 font-bold-300 pt-0 :hover text-blue-500">Go Back</a>
     </div>
 
 
-    <table class="border-collapse border border-slate-400 m-4"
-           style="border:1px solid black; border-collapse:collapse;">
+    <table class="hidden md:flex ml-20 m-4">
         <tr>
             <th class="text-red-400" style="border:1px solid black; border-collapse:collapse;padding:1em;">Student
                 Name
@@ -32,6 +31,20 @@
         @endforeach
 
     </table>
+    @foreach($totals as $studentTotal)
 
-
+                <div class="md:hidden" style="margin-left:10%;">
+                    <div class="flex"><h2 class="font-bold mr-1">Name: </h2> <span>{{ $studentTotal->name }}</span>
+                    </div>
+                    <div class="flex"><h2 class="font-bold mr-1">Reg NO.:</h2> <span>{{ $studentTotal->RegNo }}</span>
+                    </div>
+                    <div class="flex"><h2 class="font-bold mr-1">Max Attendance: </h2>
+                        <span>{{ $studentTotal->max_attendance }}</span></div>
+                    <div class="flex"><h2 class="font-bold mr-1">Student's Attendance: </h2>
+                        <span>{{ $studentTotal->student_attendance }}</span></div>
+                    <div class="flex"><h2 class="font-bold mr-1">% Attendance: </h2>
+                        <span>{{ $studentTotal->percentage_attendance . "%"}}</span></div>
+                </div>
+        <br>
+    @endforeach
 </x-layout1>

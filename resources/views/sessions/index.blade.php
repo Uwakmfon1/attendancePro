@@ -7,21 +7,21 @@
             </div>
         </x-hellocard>
         @auth
-            @foreach($courses as $courseCode)
-                <ol class="px-10">
-
+            <ol class="px-10">
+                @foreach($courses as $courseCode)
                     <li class="hover:text-blue-700">
-                        <a href="/get-page/{{ $courseCode['id'] }}">{{ $courseCode['course_code'] }} --- {{ $courseCode['course_title'] }}</a>
+                        <a href="/get-page/{{ $courseCode['id'] }}"
+                           class="text-xs ">{{ $courseCode['course_code'] }} --- {{ $courseCode['course_title'] }}</a>
                     </li>
-                </ol>
-            @endforeach
+                @endforeach
+            </ol>
         @endauth
         <br><br>
         <div class="px-10">
 
 
             <a href="/register-courses" class="mt-15 hover:text-white-500 bg-blue-500 rounded py-2 px-1">
-                REGISTER NEW  COURSES
+                REGISTER NEW COURSES
             </a>
         </div>
     </section>

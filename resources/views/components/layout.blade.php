@@ -13,7 +13,7 @@
             <h2 class="uppercase text-3xl font-bold text-blue-400 p-6">wbmyx</h2>
 
 
-        <div class="mt-8 md:mt-0 flex items-center">
+        <div class="hidden mt-8 md:mt-0 flex items-center md:block">
             @auth
                 <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}</span>
                 <form method="GET" action="/logout" class="text-xs font-semibold text-blue-500 ml-6">
@@ -31,6 +31,7 @@
     <div> {{ $slot }} </div>
 
     <footer class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-8 mt-80">
+        &copycopyright dev_hodu 2023
     </footer>
 </section>
 </body>

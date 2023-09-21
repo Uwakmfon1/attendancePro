@@ -181,6 +181,7 @@ class SessionsController extends Controller
                 'percentage_attendance' => floor((($daysPresent / $maxAttendance) * 100)),
             ];
         }
+
 //dd($totals);
 
 //        foreach ($groupedAttendances as $attendanceKey => $attendance) {

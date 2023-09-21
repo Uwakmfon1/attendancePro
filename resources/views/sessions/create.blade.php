@@ -2,7 +2,9 @@
 
     <section>
         <main
-            class="max-w-lg mx-auto mt-10 bg-gray-200 border border-gray-200 p-6 rounded-xl shadow-lg shadow-white-500/50">
+            class="max-w-sm p-10 mx-auto mt-20 bg-gray-200 border border-gray-200 p-6 rounded-xl
+            shadow-lg shadow-white-500/50 md:max-w-lg">
+
             <h1 class="text-center font-bold text-xl">Log In!</h1>
 
             <form method="POST" action="/sign-in" class="mt-10">
@@ -46,9 +48,10 @@
 
                 </div>
 
-                <div class="mb-6 flex justify-between align-middle">
+                <div class="mb-6 justify-between align-middle">
                     <button type="submit"
-                            class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500"
+                            class="bg-blue-400 ml-20 block text-white rounded py-2 px-4 hover:bg-blue-500
+                            md:flex lg:flex"
                     >
                         Log In
                     </button>
