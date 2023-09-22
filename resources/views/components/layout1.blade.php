@@ -25,7 +25,7 @@
     <div> {{ $slot }} </div>
 
     <footer class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-8 mt-60">
-        &copycopyright dev_hodu 2023
+        &copycopyright @dev_hodu 2023
     </footer>
 </section>
 </body>

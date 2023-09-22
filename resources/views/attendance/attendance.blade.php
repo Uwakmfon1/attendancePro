@@ -31,8 +31,6 @@
                             <label for="present1-{{ $student->id }}">
                                 Present
                             </label>
-
-
                             <input type="radio" name="attendance[{{ $student->id }}]" id="present1-{{ $student->id }}"
 
                                    @if($student->todays_attendance?->present)
