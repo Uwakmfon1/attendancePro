@@ -5,13 +5,13 @@
     @endforeach
 
 
-        <h1 class="py-10">You Have {{ $students->count() }} students taking this course </h1>
-        <p class="py-10"> They are:
+        <h1 class="mb-2">You Have {{ $students->count() }} students taking this course </h1>
+        <p class="py-3"> They are:
             @foreach($students as $student)
                 <strong class="hover:text-blue-400 w-15">
                     <ul>
                         <li>
-                            <a href="#" class="flex space-x-8 ">
+                            <a href="#" class="flex space-x-8 w-20 md:w-3/4">
                                <span>{{ $student->name }}</span>
                                 <span>{{ $student->RegNo }}</span>
                             </a>

@@ -1,5 +1,10 @@
 <x-layout>
     <section class="m-10">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
         <x-hellocard>
             <div>
                 <h2 class="text-2xl font-bold">Welcome To the Courses Page</h2>

@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 use App\Models\Courses;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Session;
 
 class SessionsController extends Controller
 {
@@ -40,10 +40,11 @@ class SessionsController extends Controller
 
     public function view()
     {
-        session()->flash('message', 'successfully logged in');
+        Session::flash('message', 'successfully logged in');
         $courses = Courses::all()->map->only('user_id', 'course_title', 'course_code', 'id')
             ->where('user_id', '=', Auth::id());
-        return view('sessions.index', ['courses' => $courses]);
+        return view('sessions.index', ['courses' => $courses])
+            ->with('success', 'successfully logged in');
     }
 
     public function destroy()
@@ -77,6 +78,10 @@ class SessionsController extends Controller
             'id' => $id
         ]);
     }
+//    public function getStudent()
+//    {
+//        return view('students.create');
+//    }
 
     public function takeAttendance($id)
     {
@@ -119,6 +124,7 @@ class SessionsController extends Controller
 
     public function postStudent(Request $request)
     {
+
         $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users,email',
@@ -127,18 +133,30 @@ class SessionsController extends Controller
             'course_id' => 'required'
         ]);
 
-        $students = Students::firstOrCreate([
-            'name' => $request->input('name'),
+//        dd($request);
+
+//        $students = Students::firstOrCreate([
+//            'name' => $request->input('name'),
+//            'RegNo' => $request->input('regNo'),
+//            'email' => $request->input('email'),
+//            'phone' => $request->input('phoneNo'),
+//        ]);
+//    Students::firstOrCreate([
+//       'name' => 'Goodnews John',
+//        'RegNo' => '19/BS/BA/1011',
+//        'email' => 'goodnews1@ex.com',
+//        'phone' => '09077755546'
+//    ]);
+
+        $students = Students::where('email', $request->input('email'))->first();
+        if(!$students){
+            $students = Students::create([
+                'name' => $request->input('name'),
             'RegNo' => $request->input('regNo'),
             'email' => $request->input('email'),
             'phone' => $request->input('phoneNo'),
-        ],
-            [
-                'name' => $request->input('name'),
-                'RegNo' => $request->input('regNo'),
-                'email' => $request->input('email'),
-                'phone' => $request->input('phoneNo'),
             ]);
+        }
 
         CoursesStudents::firstOrCreate([
             'student_id' => $students->id,
@@ -167,11 +185,7 @@ class SessionsController extends Controller
         $totals = [];
 
         foreach ($groupedAttendances as $attendance) {
-//            dd($attendance[0]->student-);
             $daysPresent = $attendance->filter(fn($at) => $at->present)->count();
-
-
-
 
             $totals[] = (object)[
                 'name' => $attendance[0]->student->name,
